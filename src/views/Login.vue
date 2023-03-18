@@ -55,7 +55,9 @@ import {User, Lock} from '@element-plus/icons-vue'
 import router from "@/router";
 import request from "@/utils/request";
 import {ElMessage} from "element-plus";
+import {inject} from "vue";
 
+const reload = inject('reload') // inject和父页面的provide成对出现(App.vue)
 const ruleFormRef = ref()
 const rulePasswordFormRef = ref()
 const passwordVis = ref(false)
@@ -89,14 +91,15 @@ const login = () => {
   ruleFormRef.value.validate(valid => {
     // 当valid == true 就可以调用接口了
     if (valid) {
-      request.post("/login", form).then(res => {
+      request.post("/user/login/"+form.username+"/"+form.password, form).then(res => {
         console.log(res)
         if (res.code == '200') {
           // store.$patch({user: res.data}) // res.data 是后台返回的用户数据，存储到缓存里
           ElMessage.success('登录成功')
           router.push('/')
+          reload()
         } else {
-          ElMessage.error(res.msg)
+          ElMessage.error(res.message)
         }
       })
     }
