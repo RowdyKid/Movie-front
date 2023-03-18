@@ -66,19 +66,19 @@ const checkEmail = (rule, value, callback) => {
 const rules = reactive({
   username: [
     {required: true, message: '请输入账号', trigger: 'blur'},
-    {min: 6, max: 10, message: '长度需在6~10之间', trigger: 'blur'},
+    {min: 6, max: 16, message: '长度需在6~16之间', trigger: 'blur'},
   ],
   name: [
-    {max: 10, message: '昵称长度不能大于10', trigger: 'blur'}
+    {min:2,max: 16, message: '昵称长度需在2~16之间', trigger: 'blur'}
   ],
   password: [
     {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 3, max: 8, message: '长度需在3~8之间', trigger: 'blur'},
+    {min: 6, max: 24, message: '长度需在6~24之间', trigger: 'blur'},
   ],
   confirm: [
     {required: true, message: '请确认密码', trigger: 'blur'},
     {validator: confirmPassword, trigger: 'blur'},
-    {min: 3, max: 8, message: '长度需在3~8之间', trigger: 'blur'},
+    {min: 6, max: 24, message: '长度需在6~24之间', trigger: 'blur'},
   ],
   email: [
     {required: true, message: '请验证邮箱', trigger: 'blur'},

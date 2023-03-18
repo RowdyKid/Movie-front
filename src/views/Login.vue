@@ -67,10 +67,11 @@ const time = ref(0)
 const rules = reactive({
   username: [
     {required: true, message: '请输入账号', trigger: 'blur'},
+    {min: 6, max: 16, message: '长度需在6~16之间', trigger: 'blur'},
   ],
   password: [
     {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 3, max: 8, message: '长度需在3~8之间', trigger: 'blur'},
+    {min: 6, max: 24, message: '长度需在6~24之间', trigger: 'blur'},
   ],
 })
 
