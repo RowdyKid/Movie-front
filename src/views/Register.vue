@@ -37,7 +37,9 @@ import {User, Lock, EditPen, Message} from '@element-plus/icons-vue'
 import router from "@/router";
 import request from "@/utils/request";
 import {ElMessage} from "element-plus";
+import {inject} from "vue";
 
+const reload = inject('reload') // inject和父页面的provide成对出现(App.vue)
 const form = reactive({})
 const ruleFormRef = ref()
 const time = ref(0)
@@ -64,6 +66,7 @@ const checkEmail = (rule, value, callback) => {
 const rules = reactive({
   username: [
     {required: true, message: '请输入账号', trigger: 'blur'},
+    {min: 6, max: 10, message: '长度需在6~10之间', trigger: 'blur'},
   ],
   name: [
     {max: 10, message: '昵称长度不能大于10', trigger: 'blur'}
@@ -90,12 +93,15 @@ const register = () => {
   ruleFormRef.value.validate(valid => {
     // 当valid == true 就可以调用接口了
     if (valid) {
-      request.post("/register", form).then(res => {
+      request.post("user/register/" + form.username + "/" + form.name + "/" + form.password + "/" + form.confirm + "/" + form.email, form).then(res => {
+        console.log(res)
+        console.log(res.message)
         if (res.code == '200') {
-          ElMessage.success('注册成功')
+          ElMessage.success('注册成功，请前往邮箱激活账户')
           router.push('/login')
+          reload()
         } else {
-          ElMessage.error(res.msg)
+          ElMessage.error(res.message)
         }
       })
     }
