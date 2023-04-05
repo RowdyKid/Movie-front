@@ -147,7 +147,7 @@ const carouseData = [
 
 
 .flex-grow {
-  flex-grow: 0.7;
+  flex-grow: 0.6;
 }
 
 </style>
