@@ -22,8 +22,8 @@ const select = ref('')
   <div class="common-layout" style="background-color: black">
     <el-container>
       <el-header style="display:flex; background-color: #111; height: 70px">
-        <div class="font" style="padding-top: 30px; padding-right: 20px; margin-left: 100px">
-          LOGO
+        <div class="font" style="padding-top: 30px; padding-right: 20px; margin-left: 100px;">
+          <img src="../assets/imgs/logo/logo-home.png" style="width: 40px; padding-bottom: 10px">
         </div>
         <el-menu
             :default-active="activeIndex2"
