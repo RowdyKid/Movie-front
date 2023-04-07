@@ -1,29 +1,25 @@
 <script setup>
+import Carousel from "@/views/Carousel.vue";
+import UpNext from "@/views/UpNext.vue";
+import FeaturedToday from "@/views/FeaturedToday.vue";
+import WhatToWatch from "@/views/WhatToWatch.vue";
+import ExploreMore from "@/views/ExploreMore.vue";
+import RecentlyViewed from "@/views/RecentlyViewed.vue";
 
 import {ref} from 'vue'
-import {ElementPlus, Expand, Search} from '@element-plus/icons-vue'
+import {Expand,} from '@element-plus/icons-vue'
 
-const activeIndex = ref('1')
 const activeIndex2 = ref('1')
 const drawer = ref(false)
 const input = ref('')
 const select = ref('')
-const getUrl = (img) => {
-  return new URL(`../assets/imgs/carousel/${img}`, import.meta.url).href
-}
-const carouseData = [
-  {url: getUrl("001.jpg")},
-  {url: getUrl("002.png")},
-  {url: getUrl("003.jpeg")},
-  {url: getUrl("004.jpeg")},
-  {url: getUrl("005.jpg")},
-]
+
 
 </script>
 
 <template>
   <div class="background"></div>
-  <div class="common-layout">
+  <div class="common-layout" style="background-color: black">
     <el-container>
       <el-header style="display:flex; background-color: #111; height: 70px">
         <div class="font" style="padding-top: 30px; padding-right: 20px; margin-left: 100px">
@@ -81,7 +77,7 @@ const carouseData = [
               </el-form-item>
             </el-form>
           </el-menu-item>
-          <div class="flex-grow" />
+          <div class="flex-grow"/>
           <el-menu-item index="1">
             <img src="../assets/imgs/icon/StarList.png" alt="" style="width: 25px; margin-top: 10px">
             <div style="margin-top: 5px; margin-left: 10px; font-size: large; font-weight: bold">影片列表</div>
@@ -98,70 +94,46 @@ const carouseData = [
           </el-sub-menu>
         </el-menu>
       </el-header>
-      <!--      主页-->
+      <!-- 主页-->
       <el-main>
-        <el-row gutter="20" style="height: 550px">
-          <el-col :span="16">
-            <div>
-              <!--            走马灯-->
-              <div class="block text-center">
-                <el-carousel height="550px" style="margin-left: 100px">
-                  <el-carousel-item v-for="item in carouseData" :key="item">
-                    <img :src="item.url" alt="" style="max-width: 100%; max-height: 100%; min-width: 100%; min-height: 100%"/>
-                  </el-carousel-item>
-                </el-carousel>
-              </div>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="upNext" style="margin-right: 100px; margin-top: 10px">
-              <!--        即将上映-->
-              <span style="font-weight: bold; font-size: x-large; color: #ffd04b; margin-left: 20px;"> 即将上映</span>
-              <div style="margin-top: 20px; flex-direction: column; margin-left: 30px">
-                <!--               <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">&ndash;&gt;-->
-                <el-card :body-style="{ padding: '0px' }"  class="el-card" shadow="hover">
-                  <img src="../assets/imgs/comingMovie/movie1.png" class="image">
-                  <div class="up-movie-block">
-                    <span class="font" style="font-weight: bold; font-size: 17px">'How Do You Know Your IMDb Page?' </span>
-                    <div class="bottom clearfix">
-                      <!--                          <time class="time">{{ currentDate }}</time>-->
-                      <span class="bfi">简介1:xxxxxxxxxxxxxxxxxxxx</span>
-                      <el-button type="text" class="button"></el-button>
-                    </div>
-                  </div>
-                </el-card>
-                <br>
-                <el-card :body-style="{ padding: '0px' }"  class="el-card" shadow="hover" >
-                  <img src="/src/assets/imgs/comingMovie/movie2.png" class="image">
-                  <div class="up-movie-block">
-                    <span class="font" style="font-weight: bold; font-size: 17px">'Beau Is Afraid' </span>
-                    <div class="bottom clearfix">
-                      <!--                          <time class="time">{{ currentDate }}</time>-->
-                      <span class="bfi">简介2:xxxxxxxxxxxxxxxxxxxx</span>
-                      <el-button type="text" class="button"></el-button>
-                    </div>
-                  </div>
-                </el-card>
-                <br>
-                <el-card :body-style="{ padding: '0px' }"  class="el-card" shadow="hover"  >
-                  <img src="/src/assets/imgs/comingMovie/movie3.png" class="image">
-                  <div class="up-movie-block">
-                    <span class="font" style="font-weight: bold; font-size: 17px">'Secret Invision' </span>
-                    <div class="bottom clearfix">
-                      <!--                          <time class="time">{{ currentDate }}</time>-->
-                      <span class="bfi">简介3:xxxxxxxxxxxxxxxxxxxx</span>
-                      <el-button type="text" class="button"></el-button>
-                    </div>
-                  </div>
-                </el-card>
-              </div>
-            </div>
-          </el-col>
-        </el-row>
-
-
+        <!-- 轮播图与即将上映-->
+        <div>
+          <el-row gutter="20" style="height: auto">
+            <el-col :span="16">
+              <!-- 轮播图-->
+              <Carousel/>
+            </el-col>
+            <el-col :span="8">
+              <!-- 即将上映-->
+              <UpNext/>
+            </el-col>
+          </el-row>
+        </div>
+        <!-- 今日精选-->
+        <div>
+          <FeaturedToday/>
+        </div>
+        <!-- 为你推荐-->
+        <div>
+          <WhatToWatch/>
+        </div>
+        <!-- 探索更多-->
+        <div>
+          <ExploreMore/>
+        </div>
+        <!-- 最近浏览-->
+        <div>
+          <RecentlyViewed/>
+        </div>
       </el-main>
-      <el-footer>Footer</el-footer>
+      <el-footer>
+        <div style="text-align: center">
+          <a href="https://github.com/Low-Keyy/Project4/" target="_blank">
+            <img style="height: 35px"
+                 src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
+          </a>
+        </div>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -175,9 +147,6 @@ const carouseData = [
   background-color: black;
   background-size: 100% 100%;
   background-attachment: fixed;
-
-  min-width: 900px;
-  min-height: 1000px;
 
   justify-content: center;
   align-items: center;
@@ -198,63 +167,6 @@ const carouseData = [
 
 .flex-grow {
   flex-grow: 0.6;
-}
-
-
-.bfi {
-  font-size: 14px;
-  color: #bbb;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-}
-
-.button {
-  height: 50px;
-  width: 50px;
-  background-image: url("../assets/imgs/icon/Play.png");
-  background-size: cover;
-  padding: 0;
-  float: right;
-}
-
-.image {
-  display: block;
-  width: 100px;
-  height: 150px;
-  object-fit: fill;
-  float: left;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both
-}
-
-.el-card{
-  height: 140px;
-  width: 450px;
-  box-shadow: white;
-  margin: auto;
-  border: 0;
-  background-color: #111111;
-}
-
-.up-movie-block{
-  padding: 5px;
-  height: 120px;
-  width:330px;
-  float: right;
-  margin-right: 10px;
-  margin-top: 20px;
-  border-radius: 15px;
 }
 
 </style>

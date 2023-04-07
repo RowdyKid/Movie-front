@@ -6,7 +6,7 @@
       <!-- logo -->
       <div style="width: 400px;display: flex; padding-left: 19%">
         <img src="../assets/imgs/logo1.png" alt="" style="width: 30px; margin-bottom: 10px;margin-right: 8px">
-        <div style="text-align: center; font-weight: bold; color: white; font-size: x-large;margin-top: 2px">
+        <div style="text-align: center; font-weight: bold; color: white; font-size: x-large; padding-bottom: 10px">
           电影推荐系统
         </div>
       </div>
