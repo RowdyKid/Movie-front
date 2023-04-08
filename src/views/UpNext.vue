@@ -72,7 +72,7 @@
 .image {
   display: block;
   width: 110px;
-  height: 160px;
+  height: 150px;
   object-fit: fill;
   float: left;
 }
@@ -88,7 +88,7 @@
 }
 
 .el-card {
-  height: 140px;
+  height: 150px;
   width: 450px;
   box-shadow: white;
   margin: auto;

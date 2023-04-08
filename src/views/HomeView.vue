@@ -37,7 +37,7 @@ const select = ref('')
           <el-menu-item>
             <!-- 菜单抽屉-->
             <el-button class="font"
-                       style="padding-top: 20px; margin-left: 16px; background-color: black; border: 0; font-size: large; font-weight: bold; --el-button-active-text-color: #ffd04b; --el-button-hover-text-color: #ffd04b"
+                       style="padding-top: 20px; margin-left: 16px; background-color: #111; border: 0; font-size: large; font-weight: bold; --el-button-active-text-color: #ffd04b; --el-button-hover-text-color: #ffd04b"
                        @click="drawer = true">
               <el-icon>
                 <Expand/>
@@ -136,6 +136,23 @@ const select = ref('')
       </el-footer>
     </el-container>
   </div>
+  <el-backtop :bottom="150" :right="100">
+    <div
+        style="
+        height: 100%;
+        width: 100%;
+        border-radius: 30%;
+        background-color: var(--el-bg-color-overlay);
+        box-shadow: var(--el-box-shadow-lighter);
+        text-align: center;
+        line-height: 40px;
+        color: black;
+        font-weight: bold;
+      "
+    >
+      UP
+    </div>
+  </el-backtop>
 </template>
 
 <style>
