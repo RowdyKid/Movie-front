@@ -22,8 +22,9 @@ const select = ref('')
   <div class="common-layout" style="background-color: black">
     <el-container>
       <el-header style="display:flex; background-color: #111; height: 70px">
-        <div class="font" style="padding-top: 30px; padding-right: 20px; margin-left: 100px;">
-          <img src="../assets/imgs/logo/logo-home.png" style="width: 40px; padding-bottom: 10px">
+        <div class="font" style="padding-top: 30px; padding-right: 20px; margin-left: 30px; display: flex; width: 250px">
+          <img src="../assets/imgs/logo/logo-home.png" style="width: 35px; height: 35px; margin-top: -5px">
+          <div style="color: #ffd04b; font-size: 24px; margin-left: 10px; font-weight: bold; margin-top: -2px">电影推荐系统</div>
         </div>
         <el-menu
             :default-active="activeIndex2"
@@ -37,7 +38,8 @@ const select = ref('')
           <el-menu-item>
             <!-- 菜单抽屉-->
             <el-button class="font"
-                       style="padding-top: 20px; margin-left: 16px; background-color: #111; border: 0; font-size: large; font-weight: bold; --el-button-active-text-color: #ffd04b; --el-button-hover-text-color: #ffd04b"
+                       style="padding-top: 20px; background-color: #111; border: 0; font-size: large;
+                       font-weight: bold; --el-button-active-text-color: #ffd04b; --el-button-hover-text-color: #ffd04b"
                        @click="drawer = true">
               <el-icon>
                 <Expand/>
@@ -183,7 +185,7 @@ const select = ref('')
 
 
 .flex-grow {
-  flex-grow: 0.6;
+  flex-grow: 0.35;
 }
 
 </style>
