@@ -23,6 +23,11 @@ const router = createRouter({
       name: '404',
       component: () => import('../views/404.vue')
     },
+    {
+      path: '/watchList',
+      name: 'WatchList',
+      component: () => import('../views/WatchList.vue')
+    },
   ]
 })
 
