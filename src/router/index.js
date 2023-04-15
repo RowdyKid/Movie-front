@@ -4,9 +4,22 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('../views/HomeView.vue')
+      path: '',
+      name: 'Layout',
+      component: () => import('../layout/Layout.vue'),
+      redirect: '/home',
+      children:[
+        {
+          path: '/home',
+          name: 'Home',
+          component: () => import('../views/HomeView.vue')
+        },
+        {
+          path: '/watchList',
+          name: 'WatchList',
+          component: () => import('../views/WatchList.vue')
+        },
+      ]
     },
     {
       path: '/login',
@@ -23,11 +36,7 @@ const router = createRouter({
       name: '404',
       component: () => import('../views/404.vue')
     },
-    {
-      path: '/watchList',
-      name: 'WatchList',
-      component: () => import('../views/WatchList.vue')
-    },
+
   ]
 })
 
