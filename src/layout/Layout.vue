@@ -3,7 +3,7 @@
 import {ref} from 'vue'
 import {Expand,} from '@element-plus/icons-vue'
 
-const drawer = ref(false)
+let drawer = ref(false)
 const input = ref('')
 const select = ref('')
 

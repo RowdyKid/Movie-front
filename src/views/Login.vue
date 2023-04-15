@@ -56,6 +56,7 @@ import router from "@/router";
 import request from "@/utils/request";
 import {ElMessage} from "element-plus";
 import {inject} from "vue";
+import qs from 'qs';
 
 const reload = inject('reload') // inject和父页面的provide成对出现(App.vue)
 const ruleFormRef = ref()
@@ -67,11 +68,11 @@ const time = ref(0)
 const rules = reactive({
   username: [
     {required: true, message: '请输入账号', trigger: 'blur'},
-    {min: 6, max: 16, message: '长度需在6~16之间', trigger: 'blur'},
+    {min: 4, max: 16, message: '长度需在4~16之间', trigger: 'blur'},
   ],
   password: [
     {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 6, max: 24, message: '长度需在6~24之间', trigger: 'blur'},
+    {min: 4, max: 24, message: '长度需在4~24之间', trigger: 'blur'},
   ],
 })
 
@@ -87,14 +88,22 @@ const passwordRules = reactive({
 const form = reactive({})
 const passwordForm = reactive({})
 
+
+
 const login = () => {
+  let data = {
+    userName: form.username,
+    password: form.password
+  }
+  data = JSON.stringify(data)
   console.log(ruleFormRef)
   ruleFormRef.value.validate(valid => {
     // 当valid == true 就可以调用接口了
     if (valid) {
-      request.post("/user/login/"+form.username+"/"+form.password, form).then(res => {
+      request.post("/users/login", data).then(res => {
+        console.log(data)
         console.log(res)
-        if (res.code == '200') {
+        if (res.code == '1') {
           // store.$patch({user: res.data}) // res.data 是后台返回的用户数据，存储到缓存里
           ElMessage.success('登录成功')
           router.push('/')

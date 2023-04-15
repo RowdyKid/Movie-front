@@ -40,8 +40,8 @@
             <el-text style="font-size: large;font-weight: bold; margin-left: 68%">SORT BY</el-text>
           </div>
           <div>
-            <el-select class="my-el-select" v-model="select" placeholder="List Order"
-                       style="width: 300px; float: right; margin-left: 25px; margin-top: 10px;margin-right: 80px;border-radius: 10px; color: gainsboro; background-color: white">
+            <el-select class="my-el-select" v-model="select" placeholder="List Order" style="width: 300px; float: right;
+            margin-left: 25px; margin-top: 10px;margin-right: 80px;border-radius: 10px; color: gainsboro; background-color: white">
               <el-option label="List Order" value="1"/>
               <el-option label="IMDb Rating" value="2"/>
               <el-option label="Your Rating" value="3"/>
@@ -73,7 +73,9 @@
               <text v-html="' , '" style="color: #bbbbbb;"></text>
               <router-link to="/" style="color: #bbbbbb;">Lisa Kudrow</router-link>
               <br>
-              <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">Follows the personal and professional lives of six twenty to thirty year-old friends living in the Manhattan borough of New York City.</span>
+              <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">
+                Follows the personal and professional lives of six twenty to thirty year-old friends living in the Manhattan borough of New York City.
+              </span>
 
             </div>
           </el-card>
