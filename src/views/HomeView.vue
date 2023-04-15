@@ -119,10 +119,10 @@ const select = ref('')
         <div>
           <WhatToWatch/>
         </div>
-        <!-- 探索更多-->
-        <div>
-          <ExploreMore/>
-        </div>
+<!--        &lt;!&ndash; 探索更多&ndash;&gt;-->
+<!--        <div>-->
+<!--          <ExploreMore/>-->
+<!--        </div>-->
         <!-- 最近浏览-->
         <div>
           <RecentlyViewed/>

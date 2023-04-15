@@ -1,6 +1,6 @@
 <template>
   <div style="color: #ffd04b;margin-top: 50px; margin-left: 100px; font-size: xx-large; font-weight: bold">
-    探索更多
+    探索更多（这个暂时是给页面凑数的）
   </div>
   <div style="color: white; margin-top: 50px; margin-left: 100px; font-size: x-large; font-weight: bold">
     热门影星
