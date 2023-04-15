@@ -2,11 +2,13 @@
 
 import {ref} from 'vue'
 import {Expand,} from '@element-plus/icons-vue'
+import {useUserStore} from "@/stores/user";
 
 let drawer = ref(false)
 const input = ref('')
 const select = ref('')
 
+const store = useUserStore()
 
 </script>
 

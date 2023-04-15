@@ -56,7 +56,7 @@ import router from "@/router";
 import request from "@/utils/request";
 import {ElMessage} from "element-plus";
 import {inject} from "vue";
-import qs from 'qs';
+import {useUserStore} from "@/stores/user";
 
 const reload = inject('reload') // inject和父页面的provide成对出现(App.vue)
 const ruleFormRef = ref()
@@ -88,7 +88,7 @@ const passwordRules = reactive({
 const form = reactive({})
 const passwordForm = reactive({})
 
-
+const store = useUserStore()
 
 const login = () => {
   let data = {
@@ -104,7 +104,9 @@ const login = () => {
         console.log(data)
         console.log(res)
         if (res.code == '1') {
+
           // store.$patch({user: res.data}) // res.data 是后台返回的用户数据，存储到缓存里
+          // store.setLoginInfo(res.data)
           ElMessage.success('登录成功')
           router.push('/')
           reload()
