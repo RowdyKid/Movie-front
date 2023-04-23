@@ -19,6 +19,11 @@ const router = createRouter({
           name: 'WatchList',
           component: () => import('../views/WatchList.vue')
         },
+        {
+          path: '/personCenter',
+          name: 'PersonCenter',
+          component: () => import('../views/PersonCenter.vue'),
+        },
       ]
     },
     {

@@ -3,6 +3,7 @@
 import {ref} from 'vue'
 import {Expand,} from '@element-plus/icons-vue'
 import {useUserStore} from "@/stores/user";
+import router from "@/router";
 
 let drawer = ref(false)
 const input = ref('')
@@ -93,7 +94,7 @@ const store = useUserStore()
                 <div style="margin-left: 10px">个人中心</div>
               </div>
             </template>
-            <el-menu-item index="">未登录</el-menu-item>
+            <el-menu-item index="/personCenter?page=myInfo">个人中心</el-menu-item>
             <el-menu-item index="">退出系统</el-menu-item>
           </el-sub-menu>
         </el-menu>
