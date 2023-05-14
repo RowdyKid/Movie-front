@@ -18,14 +18,14 @@ const store = useUserStore()
   <div class="common-layout" style="background-color: black">
     <el-container>
       <el-header style="display:flex; background-color: #111; height: 70px">
-        <div class="font"
-             style="padding-top: 30px; padding-right: 20px; margin-left: 30px; display: flex; width: 250px">
+        <router-link to="/home" class="font"
+             style="padding-top: 30px; padding-right: 20px; margin-left: 30px; display: flex; width: 250px; text-decoration: none">
           <img src="../assets/imgs/logo/logo-home.png" style="width: 35px; height: 35px; margin-top: -5px">
-          <router-link to="/home" style="color: #ffd04b; font-size: 24px;
-          margin-left: 10px; font-weight: bold; margin-top: -2px; text-decoration: none">
+          <div style="color: #ffd04b; font-size: 24px;
+          margin-left: 10px; font-weight: bold; margin-top: -2px;">
             电影推荐系统
-          </router-link>
-        </div>
+          </div>
+        </router-link>
         <el-menu
             :default-active = "$route.path"
             class="el-menu-demo"

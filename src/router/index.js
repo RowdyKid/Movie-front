@@ -24,6 +24,11 @@ const router = createRouter({
           name: 'PersonCenter',
           component: () => import('../views/PersonCenter.vue'),
         },
+        {
+          path: '/detail',
+          name: 'Detail',
+          component: () => import('../views/Detail.vue')
+        },
       ]
     },
     {

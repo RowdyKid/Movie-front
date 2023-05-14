@@ -5,7 +5,7 @@
     <span style="font-weight: bold; font-size: x-large; color: #ffd04b; margin-left: 20px;"> 即将上映</span>
     <div style="margin-top: 20px; flex-direction: column; margin-left: 30px">
       <!--               <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">&ndash;&gt;-->
-      <el-card :body-style="{ padding: '0px' }" class="el-card" shadow="hover">
+      <el-card :body-style="{ padding: '0px' }" class="el-card" shadow="hover" @click.native="showDetail">
         <img src="../assets/imgs/comingMovie/movie1.png" class="image">
         <div class="up-movie-block">
                     <span class="font"
@@ -18,7 +18,7 @@
         </div>
       </el-card>
       <br>
-      <el-card :body-style="{ padding: '0px' }" class="el-card" shadow="hover">
+      <el-card :body-style="{ padding: '0px' }" class="el-card" shadow="hover" @click.native="showDetail">
         <img src="/src/assets/imgs/comingMovie/movie2.png" class="image">
         <div class="up-movie-block">
           <span class="font" style="font-weight: bold; font-size: 17px">'Beau Is Afraid' </span>
@@ -30,7 +30,7 @@
         </div>
       </el-card>
       <br>
-      <el-card :body-style="{ padding: '0px' }" class="el-card" shadow="hover">
+      <el-card :body-style="{ padding: '0px' }" class="el-card" shadow="hover" @click.native="showDetail">
         <img src="/src/assets/imgs/comingMovie/movie3.png" class="image">
         <div class="up-movie-block">
           <span class="font" style="font-weight: bold; font-size: 17px">'Secret Invision' </span>
@@ -46,6 +46,12 @@
 </template>
 
 <script setup>
+
+import router from "@/router";
+
+const showDetail = () => {
+  router.push('/detail')
+}
 
 </script>
 
