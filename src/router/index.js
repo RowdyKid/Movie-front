@@ -19,15 +19,20 @@ const router = createRouter({
           name: 'WatchList',
           component: () => import('../views/WatchList.vue')
         },
-        {
-          path: '/searchList',
-          name: 'SearchList',
-          component: () => import('../views/SearchList.vue')
-        },
+        // {
+        //   path: '/searchList',
+        //   name: 'SearchList',
+        //   component: () => import('../views/SearchList.vue')
+        // },
         {
           path: '/searchResults',
           name: 'SearchResults',
           component: () => import('../views/SearchResults.vue')
+        },
+        {
+          path: '/searchPerson',
+          name: 'SearchPerson',
+          component: () => import('../views/SearchPerson.vue')
         },
         {
           path: '/personCenter',

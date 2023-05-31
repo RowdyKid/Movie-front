@@ -3,7 +3,6 @@
 import {ref} from 'vue'
 import {Expand,} from '@element-plus/icons-vue'
 import axios from 'axios';
-//import {useRouter} from "vue-router";
 import router from "@/router";
 import config from "../../config";
 import {useStore} from "vuex";
@@ -11,7 +10,6 @@ import {useStore} from "vuex";
 let drawer = ref(false)
 const keyword = ref('')
 const searchType = ref('')
-// const router = useRouter()
 const store = useStore()
 
 const search = async () => {
@@ -25,14 +23,17 @@ const search = async () => {
   try {
     const response = await axios.get(url);
     console.log(response.data)
-    // // 在成功获取搜索结果后，跳转到新页面
-    // await router.push({ name: 'SearchList', params: { data: response.data } });
 
     // 将搜索结果存储在 Vuex store 中
     store.commit('setSearchData', response.data);
     console.log(store.state.searchData.obj);
     // 在成功获取搜索结果后，跳转到新页面
-    await router.push('/searchResults');
+    if (searchType.value === 'movie') {
+      await router.push('/searchResults');
+    } else if (searchType.value === 'actor') {
+      await router.push('/searchPerson');
+    }
+
   } catch (err) {
     console.error(err);
   }
@@ -94,7 +95,7 @@ const search = async () => {
                     <el-select class="my-el-select" v-model="searchType" placeholder="选择搜索类型"
                                style="width: 115px; color: white; background-color: white; border: 0 white">
                       <el-option label="按电影名称搜索" value="movie"/>
-                      <el-option label="按演员名称搜索" value="actor"/>
+                      <el-option label="按人员搜索" value="actor"/>
                     </el-select>
                   </template>
                   <template #append>
