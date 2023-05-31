@@ -187,10 +187,4 @@
   float: left;
 }
 
-.bfi {
-  font-size: 14px;
-  color: #bbb;
-}
-
-
 </style>

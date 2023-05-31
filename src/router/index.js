@@ -20,6 +20,16 @@ const router = createRouter({
           component: () => import('../views/WatchList.vue')
         },
         {
+          path: '/searchList',
+          name: 'SearchList',
+          component: () => import('../views/SearchList.vue')
+        },
+        {
+          path: '/searchResults',
+          name: 'SearchResults',
+          component: () => import('../views/SearchResults.vue')
+        },
+        {
           path: '/personCenter',
           name: 'PersonCenter',
           component: () => import('../views/PersonCenter.vue'),
@@ -30,6 +40,11 @@ const router = createRouter({
           component: () => import('../views/Detail.vue')
         },
       ]
+    },
+    {
+      path: '/results',
+      name: 'Results',
+      component: () => import('../views/SearchResults.vue')
     },
     {
       path: '/login',

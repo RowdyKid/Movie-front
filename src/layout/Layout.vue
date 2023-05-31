@@ -2,14 +2,41 @@
 
 import {ref} from 'vue'
 import {Expand,} from '@element-plus/icons-vue'
-import {useUserStore} from "@/stores/user";
+import axios from 'axios';
+//import {useRouter} from "vue-router";
 import router from "@/router";
+import config from "../../config";
+import {useStore} from "vuex";
 
 let drawer = ref(false)
-const input = ref('')
-const select = ref('')
+const keyword = ref('')
+const searchType = ref('')
+// const router = useRouter()
+const store = useStore()
 
-const store = useUserStore()
+const search = async () => {
+  let url = `http://`+ config.serverUrl +`/`;
+  if (searchType.value === 'movie') {
+    url += `movies/${keyword.value}`;
+  } else if (searchType.value === 'actor') {
+    url += `person/${keyword.value}/movies`;
+  }
+
+  try {
+    const response = await axios.get(url);
+    console.log(response.data)
+    // // 在成功获取搜索结果后，跳转到新页面
+    // await router.push({ name: 'SearchList', params: { data: response.data } });
+
+    // 将搜索结果存储在 Vuex store 中
+    store.commit('setSearchData', response.data);
+    console.log(store.state.searchData.obj);
+    // 在成功获取搜索结果后，跳转到新页面
+    await router.push('/searchResults');
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 </script>
 
@@ -58,21 +85,20 @@ const store = useUserStore()
             <el-form style="margin-top: 10px">
               <el-form-item>
                 <el-input
-                    v-model="input"
-                    placeholder="搜索"
+                    v-model="keyword"
+                    placeholder="输入搜索关键字"
                     class="input-with-select"
                     style="padding-top:20px; width: 650px; height: 55px; border: 0 white; border-radius: 0"
                 >
                   <template #prepend>
-                    <el-select class="my-el-select" v-model="select" placeholder="Select"
+                    <el-select class="my-el-select" v-model="searchType" placeholder="选择搜索类型"
                                style="width: 115px; color: white; background-color: white; border: 0 white">
-                      <el-option label="Restaurant" value="1"/>
-                      <el-option label="Order No." value="2"/>
-                      <el-option label="Tel" value="3"/>
+                      <el-option label="按电影名称搜索" value="movie"/>
+                      <el-option label="按演员名称搜索" value="actor"/>
                     </el-select>
                   </template>
                   <template #append>
-                    <el-button style="padding-top: 5px; background-color: white">
+                    <el-button style="padding-top: 5px; background-color: white" @click="search">
                       <img src="../assets/imgs/icon/Search.png" alt="" style="width: 20px;">
                     </el-button>
                   </template>
