@@ -2,7 +2,7 @@
   <div>
     <!--            走马灯-->
     <div class="block text-center">
-      <el-carousel height="550px" style="margin-left: 100px">
+      <el-carousel height="540px" style="margin-left: 100px">
         <el-carousel-item v-for="item in carouseData" :key="item">
           <img :src="item.url" alt=""
                style="max-width: 100%; max-height: 100%; min-width: 100%; min-height: 100%"/>

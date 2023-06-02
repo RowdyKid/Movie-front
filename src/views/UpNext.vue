@@ -77,8 +77,8 @@ const showDetail = () => {
 
 .image {
   display: block;
-  width: 110px;
-  height: 150px;
+  width: 90px;
+  height: 140px;
   object-fit: fill;
   float: left;
 }
@@ -94,8 +94,8 @@ const showDetail = () => {
 }
 
 .el-card {
-  height: 150px;
-  width: 450px;
+  height: 140px;
+  width: 430px;
   box-shadow: white;
   margin: auto;
   border: 0;

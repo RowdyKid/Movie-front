@@ -2,7 +2,7 @@
   <div style="color: white; margin-top: 50px; margin-left: 100px; font-size: x-large; font-weight: bold">
     热门影片
   </div>
-  <el-scrollbar always="true" style="width: 1400px; margin-left: 100px">
+  <el-scrollbar always="true" style="width: 1200px; margin-left: 100px">
     <div style="color: white; margin-top: 20px; display: flex;">
       <div
           v-for="o in 12"

@@ -14,11 +14,18 @@ const store = useStore()
 
 const search = async () => {
   let url = `http://`+ config.serverUrl +`/`;
+  console.log(searchType.value)
   if (searchType.value === 'movie') {
     url += `movies/${keyword.value}`;
   } else if (searchType.value === 'actor') {
     url += `person/${keyword.value}/movies`;
+  } else if (searchType.value === 'company') {
+    url += `companies/${keyword.value}/movies`;
+  } else if (searchType.value === 'keyword') {
+    url += `keywords/${keyword.value}/movies`;
   }
+
+  console.log(url)
 
   try {
     const response = await axios.get(url);
@@ -32,6 +39,10 @@ const search = async () => {
       await router.push('/searchResults');
     } else if (searchType.value === 'actor') {
       await router.push('/searchPerson');
+    } else if (searchType.value === 'company') {
+      await router.push('/searchCompanies');
+    } else if (searchType.value === 'keyword') {
+      await router.push('/searchKeywords');
     }
 
   } catch (err) {
@@ -96,6 +107,8 @@ const search = async () => {
                                style="width: 115px; color: white; background-color: white; border: 0 white">
                       <el-option label="按电影名称搜索" value="movie"/>
                       <el-option label="按人员搜索" value="actor"/>
+                      <el-option label="按公司搜索" value="company"/>
+                      <el-option label="按关键词搜索" value="keyword"/>
                     </el-select>
                   </template>
                   <template #append>

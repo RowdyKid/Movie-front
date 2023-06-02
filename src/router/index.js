@@ -35,6 +35,16 @@ const router = createRouter({
           component: () => import('../views/SearchPerson.vue')
         },
         {
+          path: '/searchCompanies',
+          name: 'SearchCompanies',
+          component: () => import('../views/SearchCompanies.vue')
+        },
+        {
+          path: '/searchKeywords',
+          name: 'SearchKeywords',
+          component: () => import('../views/SearchKeywords.vue')
+        },
+        {
           path: '/personCenter',
           name: 'PersonCenter',
           component: () => import('../views/PersonCenter.vue'),

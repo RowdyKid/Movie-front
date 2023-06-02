@@ -1,0 +1,131 @@
+<template>
+  <el-main>
+    <!--    标题块-->
+    <div class="title-block">
+      <div class="title" >
+        Result
+      </div>
+      <br>
+
+    </div>
+
+    <!--    搜索列表-->
+    <div style="margin-left: 30px; margin-right: 30px; background-color: #222222">
+      <br>
+      <div>
+        <!--        列表-->
+        <el-card v-for="(movie, index) in moviesWithKeyword" :key="index" bodystyle="{padding 0 px}" class="el-card" shadow="hover">
+          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
+          <div style="margin-left: 140px">
+            <span class="font" style="font-weight: bold; font-size: 27px">{{movie.original_title}}</span>
+            <span class="font" style="margin-left: 30px; font-size: 20px; font-weight: bold">({{movie.companyName}})</span>
+            <br>
+            <span class="font" style="font-weight: bold; font-size: 17px; color: gray">发行日期 {{ movie.release_date }}</span>
+            <br>
+            <router-link to="/" style="color: #bbbbbb; text-decoration: none">流行度 {{ movie.popularity }}</router-link>
+            <br>
+            <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">平均得分: {{ movie.vote_average }}</span>
+            <br>
+            <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">简介： {{ movie.overview }}</span>
+          </div>
+        </el-card>
+      </div>
+    </div>
+  </el-main>
+</template>
+
+<script>
+
+import {computed, ref} from 'vue';
+import { useStore } from 'vuex';
+
+// const store = useStore();
+// // console.log(store.state.searchData);
+// const movies = computed(() => store.state.searchData.obj);
+// // let movies = store.state.searchData.obj
+
+export default {
+  setup() {
+    const store = useStore();
+    const moviesWithKeyword = computed(() => {
+      const keywords = store.state.searchData.obj;
+
+      //使用map reduce
+      // 这次我们不仅提取每个公司的电影列表
+      // 还将每部电影与其所属的公司名称一起保存
+      const movies = keywords.reduce((acc, keyword) => {
+        const keywordMovies = keyword.movies.map(movie => ({
+          ...movie,
+          companyName: keyword.name
+        }));
+
+        return [...acc, ...keywordMovies];
+      }, []);
+
+      return movies;
+    });
+
+    return {
+      moviesWithKeyword
+    };
+  }
+};
+
+</script>
+
+<style scoped>
+
+.font {
+  color: white;
+}
+
+.el-carousel__item h3 {
+  display: flex;
+  color: #475669;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+}
+
+/*主页面样式*/
+
+.title-block {
+  display: flex;
+  height: 100px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #222222;
+  border-bottom: 1px solid #999999;
+}
+
+.title {
+  margin-top: 20px;
+  margin-left: 25px;
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: xxx-large;
+  display: inline-block;
+  color: white;
+}
+
+.el-card {
+  margin-left: 20px;
+  margin-right: 80px;
+  margin-top: 30px;
+  height: 200px;
+  background-color: v-bind();
+  border-color: v-bind();
+  box-shadow: #999999;
+}
+
+.image {
+  display: block;
+  width: 110px;
+  height: 165px;
+  object-fit: fill;
+  float: left;
+}
+
+</style>
