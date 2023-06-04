@@ -19,11 +19,6 @@ const router = createRouter({
           name: 'WatchList',
           component: () => import('../views/WatchList.vue')
         },
-        // {
-        //   path: '/searchList',
-        //   name: 'SearchList',
-        //   component: () => import('../views/SearchList.vue')
-        // },
         {
           path: '/searchResults',
           name: 'SearchResults',
@@ -57,6 +52,18 @@ const router = createRouter({
       ]
     },
     {
+      path: '/management',
+      name: 'Management',
+      component: () => import('../layout/Management.vue'),
+      children:[
+        {
+          path: '/user',
+          name: 'User',
+          component: () => import('../views/ManageUser.vue')
+        },
+      ]
+    },
+    {
       path: '/results',
       name: 'Results',
       component: () => import('../views/SearchResults.vue')
@@ -75,6 +82,11 @@ const router = createRouter({
       path: '/404',
       name: '404',
       component: () => import('../views/404.vue')
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('../views/ManageUser.vue')
     },
 
   ]

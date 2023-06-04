@@ -56,7 +56,7 @@ import router from "@/router";
 import request from "@/utils/request";
 import {ElMessage} from "element-plus";
 import {inject} from "vue";
-import {useUserStore} from "@/stores/user";
+import {useStore} from "vuex";
 
 const reload = inject('reload') // inject和父页面的provide成对出现(App.vue)
 const ruleFormRef = ref()
@@ -87,8 +87,8 @@ const passwordRules = reactive({
 
 const form = reactive({})
 const passwordForm = reactive({})
+const userStore = useStore()
 
-const store = useUserStore()
 
 const login = () => {
   let data = {
@@ -96,20 +96,26 @@ const login = () => {
     password: form.password
   }
   data = JSON.stringify(data)
-  console.log(ruleFormRef)
+  // console.log(ruleFormRef)
   ruleFormRef.value.validate(valid => {
     // 当valid == true 就可以调用接口了
     if (valid) {
-      request.post("/users/login", data).then(res => {
-        console.log(data)
+      request.post("http://123.249.101.81:8080/users/login", data).then(res => {
+        // console.log(data)
+        // console.log(res)
+        // 将用户信息存储在 Vuex store 中
+        userStore.commit('setUserData', res);
+        console.log(userStore.state.userData.obj);
         console.log(res)
-        if (res.code == '1') {
-
-          // store.$patch({user: res.data}) // res.data 是后台返回的用户数据，存储到缓存里
-          // store.setLoginInfo(res.data)
-          ElMessage.success('登录成功')
-          router.push('/')
-          reload()
+        if (res.code == '200') {
+          localStorage.setItem('token',res.obj.token)
+          if (res.obj.role == "user") {
+            // router.push('/')
+            // reload()
+          } else if (res.obj.role == "admin") {
+            router.push('/management')
+            reload()
+          }
         } else {
           ElMessage.error(res.message)
         }

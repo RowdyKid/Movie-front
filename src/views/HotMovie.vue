@@ -28,6 +28,45 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import axios from 'axios';
+import config from "../../config";
+
+let url = `http://`+ config.serverUrl +`/`;
+const movies = ref([]);
+
+// 使用不同的URL获取不同的电影列表
+const fetchMovies = async () => {
+
+  const data = {
+    pageNum:1,
+    pageSize:10
+  }
+  // 格式化成 json 字符串
+  const _data = JSON.stringify(data)
+
+  url += `movies/recommend`;
+  const response = await fetch('http://123.249.101.81:8080/movies/recommend', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      pageNum: 1,
+      pageSize: 10
+    }),
+  })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch((error) => console.error('Error:', error));
+
+  movies.value = response.data;
+  // 打印获取到的数据
+  console.log(movies.value);
+};
+
+// 在 mounted 钩子中调用这个方法
+onMounted(fetchMovies);
 
 </script>
 
