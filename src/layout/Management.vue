@@ -3,14 +3,14 @@
     <div style="height: 60px; line-height: 60px; border-bottom: 1px solid #ccc; background-color: white">
       <div style="display: flex">
         <div style="width: 200px; color: dodgerblue; font-weight: bold; padding-left: 30px; font-size: 20px">
-          后台管理
+          电影推荐系统
         </div>
         <div style="flex: 1; display: flex">
           <div style="flex: 1"></div>
           <div style="width: 200px; text-align: right; padding-right: 40px">
             <el-dropdown>
               <div class="el-dropdown-link">
-                <el-avatar :size="45" :src="user.avatar" style="margin-top: 8px"/>
+                <el-avatar :size="45" src="" style="margin-top: 8px"/>
                 <span style="position: relative; margin-left: 10px; bottom: 15px; font-size: 15px">
                   <el-icon><ArrowDown/></el-icon>
                 </span>
@@ -32,29 +32,36 @@
     <div style="display: flex">
       <div style="width: 200px; min-height: calc(100vh - 60px); border-right: 1px solid #ccc">
         <el-menu
-            :default-active="'home'"
+            :default-active="'welcome'"
+            :default-openeds="['1']"
             class="el-menu-demo"
             style="border: none"
             router
         >
           <div>
             <div>
-              <el-menu-item>
+              <el-menu-item :index="'welcome'">
                 <el-icon><Menu/></el-icon>
                 <span>首页</span>
               </el-menu-item>
             </div>
             <div>
-              <el-sub-menu>
+              <el-sub-menu index="1">
                 <template #title>
                   <el-icon><Setting/></el-icon>
                   <span>系统管理</span>
                 </template>
                 <div>
-                  <el-menu-item>
+                  <el-menu-item :index="'user'">
                     <template #title>
                       <el-icon><User/></el-icon>
-                      <span>用户管理</span>
+                      <span>个人中心</span>
+                    </template>
+                  </el-menu-item>
+                  <el-menu-item :index="'movie'">
+                    <template #title>
+                      <el-icon><Film/></el-icon>
+                      <span>电影管理</span>
                     </template>
                   </el-menu-item>
                 </div>
@@ -73,11 +80,8 @@
 
 <script setup>
 
-import {ArrowDown, Menu, Setting, User} from "@element-plus/icons-vue";
-import {useStore} from "vuex";
-import {computed} from "vue";
-const store = useStore();
-const user = computed(() => store.state.userData.obj);
+import {ArrowDown, Film, Menu, Setting, User} from "@element-plus/icons-vue";
+import {RouterView} from 'vue-router'
 
 </script>
 

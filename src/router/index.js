@@ -57,9 +57,19 @@ const router = createRouter({
       component: () => import('../layout/Management.vue'),
       children:[
         {
-          path: '/user',
+          path: 'welcome',
+          name: 'Welcome',
+          component: () => import('../views/Welcome.vue')
+        },
+        {
+          path: 'user',
           name: 'User',
           component: () => import('../views/ManageUser.vue')
+        },
+        {
+          path: 'movie',
+          name: 'Movie',
+          component: () => import('../views/ManageMovie.vue')
         },
       ]
     },

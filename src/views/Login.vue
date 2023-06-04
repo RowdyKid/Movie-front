@@ -113,7 +113,7 @@ const login = () => {
             // router.push('/')
             // reload()
           } else if (res.obj.role == "admin") {
-            router.push('/management')
+            router.push('/management/welcome')
             reload()
           }
         } else {
