@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import store from './stores/store'
-import user from './stores/user'
 import App from './App.vue'
 import router from './router'
 import './assets/css/global.css'
@@ -17,6 +16,5 @@ pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 app.use(router)
 app.use(store)
-app.use(user)
 
 app.mount('#app')

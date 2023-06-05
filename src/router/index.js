@@ -45,7 +45,7 @@ const router = createRouter({
           component: () => import('../views/PersonCenter.vue'),
         },
         {
-          path: '/detail',
+          path: '/movies/details/:id',
           name: 'Detail',
           component: () => import('../views/Detail.vue')
         },

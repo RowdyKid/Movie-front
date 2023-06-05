@@ -2,47 +2,38 @@
   <el-main>
     <!--    标题块-->
     <div class="title-block">
-      <div class="title" >
-        演职人员 "{{ movies.name }}"
-        <!--          <div style="display: inline-block" v-for="item in searchTerm">-->
-        <!--            "{{item}}"{{"\xa0"}}-->
-        <!--          </div>-->
+      <div class="title">
+        Result
       </div>
       <br>
-
     </div>
 
     <!--    搜索列表-->
     <div style="margin-left: 30px; margin-right: 30px; background-color: #222222">
       <br>
       <div>
-        <div class="font" style="margin-left: 70px; font-size: 24px; font-weight: bold">展示作为演员的搜索结果:</div>
+        <!--        <div class="font" style="margin-left: 70px; font-size: 24px; font-weight: bold">展示作为演员的搜索结果:</div>-->
         <!--        列表-->
-        <el-card v-for="(movie, index) in movieCast" :key="index" bodystyle="{padding 0 px}" class="el-card" shadow="hover">
-          <!-- <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">-->
-          <div style="margin-left: 30px">
-            <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-if="movie.movie_title">{{movie.movie_title}}</div>
-            <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-else>暂无</div>
-            <br>
-            <div class="font" style="font-weight: bold; font-size: 17px; color: gray; margin-bottom: -8px">演员 {{ movies.name }}</div>
-            <br>
-            <router-link to="/" style="color: #bbbbbb; text-decoration: none">饰演角色 {{ movie.character }}</router-link>
-          </div>
-        </el-card>
-<!--        &lt;!&ndash; 分割线 &ndash;&gt;-->
-<!--        <div style="border-bottom: 1px solid #999999; margin-top: 30px"></div>-->
-        <div class="font" style="margin-left: 70px; font-size: 24px; font-weight: bold; margin-top: 30px">展示作为工作人员的搜索结果:</div>
-        <!--        列表-->
-        <el-card v-for="(movie, index) in movieCrew" :key="index" bodystyle="{padding 0 px}" class="el-card" shadow="hover">
-          <!-- <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">-->
-          <div style="margin-left: 30px">
-            <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-if="movie.movie_title">{{movie.movie_title}}</div>
-            <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-else>暂无</div>
-            <br>
-            <div class="font" style="font-weight: bold; font-size: 17px; color: gray; margin-bottom: -8px">部门： {{ movie.department }}</div>
-            <br>
-            <router-link to="/" style="color: #bbbbbb; text-decoration: none">职务： {{ movie.job }}</router-link>
-          </div>
+        <el-card v-for="(movie, index) in moviesWithPerson" :key="index" bodystyle="{padding 0 px}" class="el-card"
+                 shadow="hover">
+          <router-link :to="`/movies/details/${movie.movie_id}`">
+            <div style="margin-left: 30px" v-if="movie.source === 'movieCastRelations'">
+              <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-if="movie.movie_title">{{ movie.movie_title }}</div>
+              <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-else>暂无</div>
+              <br>
+              <div class="font" style="font-weight: bold; font-size: 17px; color: gray; margin-bottom: -8px">演员 {{ movie.personName }}</div>
+              <br>
+              <div style="color: #bbbbbb; text-decoration: none">饰演角色 {{ movie.character }}</div>
+            </div>
+            <div style="margin-left: 30px" v-if="movie.source === 'movieCrewRelations'">
+              <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-if="movie.movie_title">{{movie.movie_title}}</div>
+              <div class="font" style="font-weight: bold; font-size: 27px; margin-bottom: -5px" v-else>暂无</div>
+              <br>
+              <div class="font" style="font-weight: bold; font-size: 17px; color: gray; margin-bottom: -8px">职员 {{ movie.personName }}</div>
+              <br>
+              <div class="font" style="font-weight: bold; font-size: 17px; color: gray; margin-bottom: -8px">部门： {{ movie.department }}&nbsp;&nbsp;&nbsp;&nbsp;职务： {{ movie.job }}</div>
+            </div>
+          </router-link>
         </el-card>
       </div>
     </div>
@@ -51,28 +42,34 @@
 
 <script>
 
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+import {computed} from 'vue';
+import {useStore} from 'vuex';
 
 export default {
   setup() {
-    // 目前暂时先只展示搜到的第一个人的信息 后续再完善
     const store = useStore();
-    const movies = computed(() => store.state.searchData.obj[0]);
-    const movieCast = computed(() => store.state.searchData.obj[0].movieCastRelations);
-    // const movieCrew = computed(() => store.state.searchData.obj[0].movieCrewRelations);
-    const movieCrew = computed(() => {
-      // 过滤掉movie_title为空的数据
-      return store.state.searchData.obj[0].movieCrewRelations.filter((movie) => {
-        return movie.movie_title !== null && movie.movie_title !== undefined && movie.movie_title.trim() !== '';
-      });
+    const moviesWithPerson = computed(() => {
+      const personList = store.state.searchData.obj;
+      //使用map reduce
+      // 这次我们不仅提取每个人员的电影列表
+      // 还将每部电影与其所属的人员名称一起保存
+      const movies = personList.reduce((acc, person) => {
+        const personMoviesCast = person.movieCastRelations.map(movie => ({
+          ...movie,
+          personName: person.name,
+          source: 'movieCastRelations',  // 添加 source 属性
+        }));
+        const personMoviesCrew = person.movieCrewRelations.map(movie => ({
+          ...movie,
+          personName: person.name,
+          source: 'movieCrewRelations',  // 添加 source 属性
+        }));
+        return [...acc, ...personMoviesCast, ...personMoviesCrew];
+      }, []);
+      return movies;
     });
-
-    // 在 setup() 中返回的任何属性或方法都将可在组件的模板中使用
     return {
-      movies,
-      movieCast,
-      movieCrew
+      moviesWithPerson
     };
   }
 };

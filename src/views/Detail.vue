@@ -9,6 +9,8 @@
       <div style="color: #bbb; font-weight: bold">
         2023
       </div>
+<!--      测试-->
+      <div>{{movie}}</div>
     </div>
     <!-- 播放栏-->
     <div style="height: 400px; width: 800px; border: 1px solid white; margin: 20px auto">
@@ -65,7 +67,22 @@
   </el-main>
 </template>
 
-<script setup>
+<script>
+
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      movie: null
+    }
+  },
+  async created() {
+    const movieId = this.$route.params.id;
+    const response = await axios.get(`http://123.249.101.81:8080/movies/details/${movieId}`);
+    this.movie = response.data;
+  }
+}
 
 </script>
 

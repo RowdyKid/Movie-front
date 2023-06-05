@@ -61,27 +61,28 @@
 </template>
 
 <script setup>
+import {useStore} from "vuex";
+import {computed} from "vue";
+
+const store = useStore();
+const user = computed(() => store.state.userData.obj);
+
 import {Plus} from '@element-plus/icons-vue'
 import {ElMessage} from "element-plus";
 import {reactive, ref} from "vue";
 import request from "@/utils/request";
-import {useUserStore} from "@/stores/user";
-import config from "/config";
 
-const url = ref("http://" + config.serverUrl + "/file/upload")
-const store = useUserStore()
-const userId = store.getUserId
 
 let state = reactive({
-  user: {},
+  user: user,
   headers: {
-    Authorization: store.getBearerToken
+    Authorization: user.token
   }
 })
 
 const handleAvatarSuccess = (res) => {
   if (res.code === '200') {
-    state.user.avatar = res.data + "?loginId=" + store.getUser.uid + "&token=" + store.getToken
+    state.user.avatar = res.data
   } else {
     ElMessage.error('上传失败')
   }
@@ -99,7 +100,7 @@ const save = () => {
 }
 
 const loadUser = () => {
-  request.get('/user/' + userId).then(res => {
+  request.get('/users').then(res => {
     state.user = res.data
   })
 }

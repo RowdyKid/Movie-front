@@ -15,19 +15,21 @@
       <div>
         <!--        列表-->
         <el-card v-for="(movie, index) in moviesWithKeyword" :key="index" bodystyle="{padding 0 px}" class="el-card" shadow="hover">
-          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
-          <div style="margin-left: 140px">
-            <span class="font" style="font-weight: bold; font-size: 27px">{{movie.original_title}}</span>
-            <span class="font" style="margin-left: 30px; font-size: 20px; font-weight: bold">({{movie.companyName}})</span>
-            <br>
-            <span class="font" style="font-weight: bold; font-size: 17px; color: gray">发行日期 {{ movie.release_date }}</span>
-            <br>
-            <router-link to="/" style="color: #bbbbbb; text-decoration: none">流行度 {{ movie.popularity }}</router-link>
-            <br>
-            <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">平均得分: {{ movie.vote_average }}</span>
-            <br>
-            <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">简介： {{ movie.overview }}</span>
-          </div>
+          <router-link :to="`/movies/details/${movie.id}`">
+            <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
+            <div style="margin-left: 140px">
+              <span class="font" style="font-weight: bold; font-size: 27px">{{movie.original_title}}</span>
+              <span class="font" style="margin-left: 30px; font-size: 20px; font-weight: bold">({{movie.companyName}})</span>
+              <br>
+              <span class="font" style="font-weight: bold; font-size: 17px; color: gray">发行日期 {{ movie.release_date }}</span>
+              <br>
+              <router-link to="/" style="color: #bbbbbb; text-decoration: none">流行度 {{ movie.popularity }}</router-link>
+              <br>
+              <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">平均得分: {{ movie.vote_average }}</span>
+              <br>
+              <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">简介： {{ movie.overview }}</span>
+            </div>
+          </router-link>
         </el-card>
       </div>
     </div>

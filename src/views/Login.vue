@@ -110,8 +110,8 @@ const login = () => {
         if (res.code == '200') {
           localStorage.setItem('token',res.obj.token)
           if (res.obj.role == "user") {
-            // router.push('/')
-            // reload()
+            router.push('/')
+            reload()
           } else if (res.obj.role == "admin") {
             router.push('/management/welcome')
             reload()
