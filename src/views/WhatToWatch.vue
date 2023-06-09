@@ -7,15 +7,6 @@
     <div>
       <HotMovie/>
     </div>
-    <div>
-      <ForYou/>
-    </div>
-    <div>
-      <HotList/>
-    </div>
-    <div style="color: white; margin-top: 50px; margin-left: 100px; font-size: x-large; font-weight: bold">
-      高分榜单
-    </div>
 
   </div>
 
@@ -24,8 +15,6 @@
 <script setup>
 
 import HotMovie from "@/views/HotMovie.vue";
-import ForYou from "@/views/ForYou.vue";
-import HotList from "@/views/HotList.vue";
 
 </script>
 

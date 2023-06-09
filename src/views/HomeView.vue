@@ -1,7 +1,6 @@
 <script setup>
 import Carousel from "@/views/Carousel.vue";
-import UpNext from "@/views/UpNext.vue";
-import FeaturedToday from "@/views/FeaturedToday.vue";
+import PersonalRecommend from "@/views/PersonalRecommend.vue";
 import WhatToWatch from "@/views/WhatToWatch.vue";
 import RecentlyViewed from "@/views/RecentlyViewed.vue";
 
@@ -10,7 +9,7 @@ import RecentlyViewed from "@/views/RecentlyViewed.vue";
 <template>
   <!-- 主页-->
   <el-main>
-    <!-- 轮播图与即将上映-->
+    <!-- 轮播图与个性化推荐-->
     <div>
       <el-row gutter="20" style="height: auto">
         <el-col :span="16">
@@ -18,24 +17,15 @@ import RecentlyViewed from "@/views/RecentlyViewed.vue";
           <Carousel/>
         </el-col>
         <el-col :span="8">
-          <!-- 即将上映-->
-          <UpNext/>
+          <!-- 个性化推荐-->
+          <PersonalRecommend/>
         </el-col>
       </el-row>
-    </div>
-    <!-- 今日精选-->
-    <div>
-      <FeaturedToday/>
     </div>
     <!-- 为你推荐-->
     <div>
       <WhatToWatch/>
     </div>
-    <!--        &lt;!&ndash; 探索更多&ndash;&gt;-->
-    <!--        <div>-->
-    <!--          <ExploreMore/>-->
-    <!--        </div>-->
-    <!-- 最近浏览-->
     <div>
       <RecentlyViewed/>
     </div>
