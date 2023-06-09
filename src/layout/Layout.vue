@@ -12,6 +12,8 @@ const keyword = ref('')
 const searchType = ref('')
 const store = useStore()
 
+const token = localStorage.getItem('token');
+
 const search = async () => {
   let url = `http://`+ config.serverUrl +`/`;
   console.log(searchType.value)
@@ -76,21 +78,21 @@ const search = async () => {
             router
         >
           <el-menu-item index="">
-            <!-- 菜单抽屉-->
-            <el-button class="font"
-                       style="padding-top: 20px; background-color: #111; border: 0; font-size: large;
-                       font-weight: bold; --el-button-active-text-color: #ffd04b; --el-button-hover-text-color: #ffd04b"
-                       @click="drawer = true">
-              <el-icon>
-                <Expand/>
-              </el-icon>
-              菜单
-            </el-button>
-            <el-drawer class="font" style="background-color: #222" direction="ttb" size="80%" v-model="drawer"
-                       :with-header="true">
-              <div style="width: 30%; text-align: center">LOGO</div>
-              <div style="text-align: center">菜单内容</div>
-            </el-drawer>
+<!--            &lt;!&ndash; 菜单抽屉&ndash;&gt;-->
+<!--            <el-button class="font"-->
+<!--                       style="padding-top: 20px; background-color: #111; border: 0; font-size: large;-->
+<!--                       font-weight: bold; &#45;&#45;el-button-active-text-color: #ffd04b; &#45;&#45;el-button-hover-text-color: #ffd04b"-->
+<!--                       @click="drawer = true">-->
+<!--              <el-icon>-->
+<!--                <Expand/>-->
+<!--              </el-icon>-->
+<!--              菜单-->
+<!--            </el-button>-->
+<!--            <el-drawer class="font" style="background-color: #222" direction="ttb" size="80%" v-model="drawer"-->
+<!--                       :with-header="true">-->
+<!--              <div style="width: 30%; text-align: center">LOGO</div>-->
+<!--              <div style="text-align: center">菜单内容</div>-->
+<!--            </el-drawer>-->
           </el-menu-item>
           <el-menu-item index="">
             <!-- 搜索框-->
@@ -120,7 +122,6 @@ const search = async () => {
               </el-form-item>
             </el-form>
           </el-menu-item>
-          <div class="flex-grow"/>
           <el-menu-item index="/watchList">
             <img src="../assets/imgs/icon/StarList.png" alt="" style="width: 25px; margin-top: 10px">
             <div style="margin-top: 5px; margin-left: 10px; font-size: large; font-weight: bold; text-decoration: none">
@@ -134,7 +135,8 @@ const search = async () => {
                 <div style="margin-left: 10px">个人中心</div>
               </div>
             </template>
-            <el-menu-item index="/personCenter?page=myInfo">个人中心</el-menu-item>
+            <el-menu-item v-if="!token" index="/login">请登录</el-menu-item>
+            <el-menu-item v-if="token" index="/personCenter?page=myInfo">个人中心</el-menu-item>
             <el-menu-item index="">退出系统</el-menu-item>
           </el-sub-menu>
         </el-menu>
@@ -194,11 +196,6 @@ const search = async () => {
   opacity: 0.75;
   line-height: 300px;
   margin: 0;
-}
-
-
-.flex-grow {
-  flex-grow: 0.35;
 }
 
 </style>

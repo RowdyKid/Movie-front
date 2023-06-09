@@ -17,7 +17,7 @@ const router = createRouter({
         {
           path: '/watchList',
           name: 'WatchList',
-          component: () => import('../views/WatchList.vue')
+          component: () => import('../views/RecommendList.vue')
         },
         {
           path: '/searchResults',
