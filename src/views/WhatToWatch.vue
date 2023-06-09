@@ -7,7 +7,6 @@
     <div>
       <HotMovie/>
     </div>
-
   </div>
 
 </template>

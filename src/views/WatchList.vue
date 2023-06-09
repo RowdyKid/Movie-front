@@ -1,91 +1,105 @@
-<script setup>
-
-</script>
-
 <template>
   <!--  主页面-->
   <el-main>
     <!--    标题块-->
     <div class="title-block">
-      <div class="title">
-        Your Watchlist
-        <div
-            style="margin-left: 5px; margin-right: 10px; margin-top: 15px; height: 40px; width: 100%; background-color: v-bind()">
-          <img src="../../src/assets/imgs/icon/private.png"
-               style="object-fit: cover; vertical-align: top; height:25px; width: 25px" alt="Submit">
-          <span style="font-size: large; vertical-align: top ; color: #aaaaaa;">private</span>
-        </div>
+      <div class="title" >
+        推荐
       </div>
-      <div class="button-block1">
-        <div class="button-block2">
-          <el-button class="shareButton"></el-button>
-          <span style="font-weight: bold;color: #aaaaaa"> SHARE </span>
-        </div>
-        <div class="button-block2">
-          <el-button class="editButton"></el-button>
-          <span style="font-weight: bold;color: #aaaaaa"> EDIT </span>
-        </div>
+      <div class="demo-pagination-block">
+        <el-pagination
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :pager-count="3"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            layout="pager, jumper"
+            :total="1000"
+            @current-change="handleCurrentChange"
+        />
       </div>
-      <br>
-
     </div>
-    <!--    观影列表-->
     <div style="margin-left: 30px; margin-right: 30px; background-color: #222222">
       <br>
-      <!--      标题-->
-      <div style="display: flex">
-        <div style="font-size: 40px; color: #aaaaaa; margin-left: 20px; margin-top: 10px">2 titles</div>
-        <div style="flex-grow: 1">
-          <div style="margin-left: 270px">
-            <el-text style="font-size: large;font-weight: bold; margin-left: 68%">SORT BY</el-text>
+      <!--        列表-->
+      <div v-for="(movie, index) in movies" :key="index">
+        <el-card v-if="movie.original_title" bodystyle="{padding 0 px}" class="el-card" shadow="hover">
+          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
+          <div style="margin-left: 140px">
+            <span class="font" style="font-weight: bold; font-size: 27px">{{movie.original_title}}</span>
+            <br>
+            <span class="font" style="font-weight: bold; font-size: 17px; color: gray">发行日期 {{ movie.release_date }}</span>
+            <br>
+            <span style="color: #bbbbbb; text-decoration: none">流行度 {{ movie.popularity }}</span>
+            <br>
+            <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">平均得分: {{ movie.vote_average }}</span>
+            <br>
+            <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">简介： {{ movie.overview }}</span>
           </div>
-          <div>
-            <el-select class="my-el-select" v-model="select" placeholder="List Order" style="width: 300px; float: right;
-            margin-left: 25px; margin-top: 10px;margin-right: 80px;border-radius: 10px; color: gainsboro; background-color: white">
-              <el-option label="List Order" value="1"/>
-              <el-option label="IMDb Rating" value="2"/>
-              <el-option label="Your Rating" value="3"/>
-              <el-option label="Popularity" value="4"/>
-              <el-option label="Add Date" value="5"/>
-            </el-select>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div
-            v-for="o in 2"
-            :key="o"
-        >
-          <!--        列表-->
-          <el-card bodystyle="{padding 0 px}" class="el-card" shadow="hover">
-            <img src="../assets/imgs/watchList/movie4.jpg" class="image">
-            <div style="margin-left: 140px">
-              <span class="font" style="font-weight: bold; font-size: 27px">'Friends' </span>
-              <br>
-              <span class="font" style="font-weight: bold; font-size: 17px; color: gray">1994-2004TV Series234epsComedy, Romance</span>
-              <br>
-              <router-link to="/" style="color: #bbbbbb;">Rate</router-link>
-              <!--                          <time class="time">{{ currentDate }}</time>-->
-              <br>
-              <router-link to="/" style="color: #bbbbbb;">Jennifer Aniston</router-link>
-              <text v-html="' , '" style="color: #bbbbbb;"></text>
-              <router-link to="/" style="color: #bbbbbb;">Courteney Cox</router-link>
-              <text v-html="' , '" style="color: #bbbbbb;"></text>
-              <router-link to="/" style="color: #bbbbbb;">Lisa Kudrow</router-link>
-              <br>
-              <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">
-                Follows the personal and professional lives of six twenty to thirty year-old friends living in the Manhattan borough of New York City.
-              </span>
-
-            </div>
-          </el-card>
-        </div>
+        </el-card>
       </div>
     </div>
   </el-main>
-
 </template>
 
+<script>
+
+import {ref} from 'vue';
+import axios from "axios";
+
+export default {
+  setup() {
+
+    const currentPage = ref(1);
+    const pageSize = ref(100);
+    const small = ref(false);
+    const disabled = ref(false);
+    const background = ref(true);
+    const movies = ref([]);
+    const token = localStorage.getItem('token');
+
+    const getRecommendations = async (pageNum) => {
+
+      let url = `http://123.249.101.81:8080/movies/recommend/${pageNum}`;
+      let config = {};
+
+      // 实现有登录推荐取消注释
+      if (token) {
+        config.headers = { 'token': token };
+      }
+
+      try {
+        const response = await axios.get(url, config);
+        return response.data.obj.list;
+      } catch (error) {
+        console.error('Failed to get recommendations:', error);
+      }
+    }
+
+    const handleCurrentChange = function(val) {
+      console.log(`current page: ${val}`);
+      currentPage.value = val;
+      console.log(currentPage.value)
+
+      getRecommendations(currentPage.value).then((recommendations) => {
+        movies.value = recommendations;
+        console.log(movies.value);
+      });
+    };
+
+    getRecommendations(currentPage.value).then((recommendations) => {
+      movies.value = recommendations;
+      console.log(movies.value);
+    });
+
+    // 在 setup() 中返回的任何属性或方法都将可在组件的模板中使用
+    return {currentPage, pageSize, small, disabled, background, handleCurrentChange, movies};
+  }
+};
+
+
+</script>
 
 <style scoped>
 
@@ -104,8 +118,10 @@
 /*主页面样式*/
 
 .title-block {
+  position: relative;
+  padding-bottom: 20px; /* 分页组件的高度加上底部间距 */
   display: flex;
-  height: 150px;
+  height: 100px;
   margin-left: 30px;
   margin-right: 30px;
   border-top-left-radius: 8px;
@@ -119,64 +135,17 @@
   margin-left: 25px;
   margin-right: 10px;
   font-weight: bold;
-  font-size: xxx-large;
+  font-size: 40px;
+  display: inline-block;
   color: white;
 }
 
-.button-block1 {
-  margin-left: 55%;
-  height: 130px;
-  width: 250px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: v-bind();
-  float: right;
-  margin-top: 10px;
-}
-
-.button-block2 {
-  height: 100px;
-  width: 85px;
-  background-color: v-bind();
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .el-card {
-  margin-left: 20px;
-  margin-right: 80px;
-  margin-top: 30px;
+  margin: 20px 80px auto 20px;
   height: 200px;
   background-color: v-bind();
   border-color: v-bind();
   box-shadow: #999999;
-}
-
-.shareButton {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  background-image: url("../../src/assets/imgs/icon/share.png");
-  background-size: 90%;
-  background-position-y: 5px;
-  background-color: v-bind();
-  --el-button-active-border-color: #ffd04b;
-  --el-button-outline-color: #ffd04b;
-}
-
-.editButton {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  background-image: url("../../src/assets/imgs/icon/edit.png");
-  background-size: 88%;
-  background-position: center;
-  background-position-y: 2px;
-  background-color: v-bind();
-  --el-button-active-border-color: #ffd04b;
-  --el-button-outline-color: #ffd04b;
 }
 
 .image {
@@ -185,6 +154,14 @@
   height: 165px;
   object-fit: fill;
   float: left;
+}
+
+.demo-pagination-block {
+  margin-top: 10px;
+  margin-bottom: 16px;
+  position: absolute;
+  bottom: 10px;
+  right: 70px;
 }
 
 </style>

@@ -4,9 +4,6 @@
     <div class="title-block">
       <div class="title" >
         搜索
-        <!--          <div style="display: inline-block" v-for="item in searchTerm">-->
-        <!--            "{{item}}"{{"\xa0"}}-->
-        <!--          </div>-->
       </div>
       <br>
 
@@ -31,7 +28,7 @@
               <br>
               <span class="font" style="font-weight: bold; font-size: 17px; color: gray">发行日期 {{ movie.release_date }}</span>
               <br>
-              <router-link to="/" style="color: #bbbbbb; text-decoration: none">流行度 {{ movie.popularity }}</router-link>
+              <span style="color: #bbbbbb; text-decoration: none">流行度 {{ movie.popularity }}</span>
               <br>
               <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">平均得分: {{ movie.vote_average }}</span>
               <br>

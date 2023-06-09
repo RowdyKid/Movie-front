@@ -213,7 +213,6 @@ const resetPassword = () => {
   background-attachment: fixed;
 
   min-width: 900px;
-  min-height: 1000px;
 
   justify-content: center;
   align-items: center;

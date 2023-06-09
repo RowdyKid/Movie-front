@@ -124,7 +124,7 @@ const search = async () => {
           <el-menu-item index="/watchList">
             <img src="../assets/imgs/icon/StarList.png" alt="" style="width: 25px; margin-top: 10px">
             <div style="margin-top: 5px; margin-left: 10px; font-size: large; font-weight: bold; text-decoration: none">
-              影片列表
+              查看更多
             </div>
           </el-menu-item>
           <el-sub-menu index="">

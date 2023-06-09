@@ -1,5 +1,5 @@
 <template>
-  <div style="color: white; margin-top: 50px; margin-left: 100px; font-size: x-large; font-weight: bold">
+  <div style="color: white; margin-top: 20px; margin-left: 100px; font-size: x-large; font-weight: bold">
     热门影片
   </div>
   <el-scrollbar always="true" style="width: 1200px; margin-left: 100px">
@@ -51,7 +51,6 @@
     <el-button @click="closeLoginDialog">我知道了</el-button>
   </span>
   </el-dialog>
-
 
 </template>
 
