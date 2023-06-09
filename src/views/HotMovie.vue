@@ -12,7 +12,7 @@
                  style="width: 210px; height: 500px; margin-left: 10px; margin-right: 16px">
           <router-link :to="`/movies/details/${movie.id}`" class="movie-link">
             <img
-                :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+                :src="`https://www.themoviedb.org${movie.poster_path}`"
                 class="image"
             />
           </router-link>

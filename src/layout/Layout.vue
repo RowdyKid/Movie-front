@@ -52,6 +52,14 @@ const search = async () => {
   }
 };
 
+const handleLogout = () => {
+  // 清除所有本地存储
+  localStorage.clear();
+  sessionStorage.clear();
+  // 跳转到登录页面
+  router.push('/login');
+}
+
 </script>
 
 <template>
@@ -137,7 +145,7 @@ const search = async () => {
             </template>
             <el-menu-item v-if="!token" index="/login">请登录</el-menu-item>
             <el-menu-item v-if="token" index="/personCenter?page=myInfo">个人中心</el-menu-item>
-            <el-menu-item index="">退出系统</el-menu-item>
+            <el-menu-item index="/login" @click="handleLogout">退出系统</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </el-header>

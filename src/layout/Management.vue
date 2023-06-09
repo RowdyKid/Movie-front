@@ -17,10 +17,9 @@
               </div>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item>个人中心</el-dropdown-item>
-                  <el-dropdown-item>
-                    <div>退出系统</div>
-                  </el-dropdown-item>
+                  <el-dropdown-item v-if="!token" @click="handleLogin">去登录</el-dropdown-item>
+                  <el-dropdown-item v-if="token" @click="handlePersonalCenter">个人中心</el-dropdown-item>
+                  <el-dropdown-item index="/login" @click="handleLogout">退出系统</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -52,16 +51,16 @@
                   <span>系统管理</span>
                 </template>
                 <div>
-                  <el-menu-item :index="'user'">
-                    <template #title>
-                      <el-icon><User/></el-icon>
-                      <span>个人中心</span>
-                    </template>
-                  </el-menu-item>
                   <el-menu-item :index="'movie'">
                     <template #title>
                       <el-icon><Film/></el-icon>
                       <span>电影管理</span>
+                    </template>
+                  </el-menu-item>
+                  <el-menu-item :index="'user'">
+                    <template #title>
+                      <el-icon><User/></el-icon>
+                      <span>个人中心</span>
                     </template>
                   </el-menu-item>
                 </div>
@@ -82,6 +81,26 @@
 
 import {ArrowDown, Film, Menu, Setting, User} from "@element-plus/icons-vue";
 import {RouterView} from 'vue-router'
+import router from "@/router";
+
+const token = localStorage.getItem('token');
+
+const handleLogout = () => {
+  // 清除所有本地存储
+  localStorage.clear();
+  sessionStorage.clear();
+  // 跳转到登录页面
+  router.push('/login');
+}
+
+const handleLogin = () => {
+  // 跳转到登录页面
+  router.push('/login');
+}
+
+const handlePersonalCenter = () => {
+  router.push('/management/user');
+}
 
 </script>
 
