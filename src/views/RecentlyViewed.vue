@@ -2,7 +2,7 @@
   <div style="color: #ffd04b;margin-top: 50px; margin-left: 100px; font-size: xx-large; font-weight: bold">
     最近浏览
   </div>
-  <div v-if="token">
+  <div v-if="!flag">
     <div>
       <el-scrollbar always="true" style="width: 1200px; margin-left: 100px">
         <div style="color: white; margin-top: 20px; display: flex;">
@@ -55,7 +55,7 @@
       </el-dialog>
     </div>
   </div>
-  <div v-if="!token">
+  <div v-if="flag">
     <router-link to="/login">
     <div class="font" style="margin-top: 40px; margin-left: 110px; font-size: 20px; height: 80px; text-decoration: underline;">
       请先前往登录~
@@ -76,6 +76,7 @@ const dialogVisible = ref(false);
 const loginDialogVisible = ref(false);
 const score = ref(0);
 const selectedMovieId = ref(null);
+const flag = ref('');
 
 const getViewed = async (pageNum) => {
   // const token = localStorage.getItem('token');
@@ -84,12 +85,15 @@ const getViewed = async (pageNum) => {
 
   if (token) {
     config.headers = { 'token': token };
+  } else {
+    flag.value = 'No token found.';
   }
 
   try {
     const response = await axios.get(url, config);
     return response.data.obj.list;
   } catch (error) {
+    flag.value = 'Failed to get recommendations.';
     console.error('Failed to get recommendations:', error);
   }
 }

@@ -6,14 +6,16 @@
     <el-scrollbar v-if="!flag" always="true" style="height: 500px; width: 460px">
       <div v-if="!flag" v-for="(movie, index) in movies" :key="index" style="margin-top: 20px; flex-direction: column; margin-left: 30px">
       <el-card v-if="movie.original_title" :body-style="{ padding: '0px' }" class="el-card-p" shadow="hover">
-        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
-        <div class="up-movie-block">
-                    <span class="font"
-                          style="font-weight: bold; font-size: 17px">{{movie.original_title}} </span>
-          <div class="bottom clearfix">
-            <span class="bfi">{{movie.overview}}</span>
+        <router-link :to="`/movies/details/${movie.id}`" class="movie-link">
+          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
+          <div class="up-movie-block">
+                      <span class="font"
+                            style="font-weight: bold; font-size: 17px">{{movie.original_title}} </span>
+            <div class="bottom clearfix">
+              <span class="bfi">{{movie.overview}}</span>
+            </div>
           </div>
-        </div>
+        </router-link>
       </el-card>
     </div>
     </el-scrollbar>

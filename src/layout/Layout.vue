@@ -133,7 +133,7 @@ const handleLogout = () => {
           <el-menu-item index="/watchList">
             <img src="../assets/imgs/icon/StarList.png" alt="" style="width: 25px; margin-top: 10px">
             <div style="margin-top: 5px; margin-left: 10px; font-size: large; font-weight: bold; text-decoration: none">
-              查看更多
+              更多推荐
             </div>
           </el-menu-item>
           <el-sub-menu index="">
@@ -145,7 +145,7 @@ const handleLogout = () => {
             </template>
             <el-menu-item v-if="!token" index="/login">请登录</el-menu-item>
             <el-menu-item v-if="token" index="/personCenter?page=myInfo">个人中心</el-menu-item>
-            <el-menu-item index="/login" @click="handleLogout">退出系统</el-menu-item>
+            <el-menu-item v-if="token" index="/login" @click="handleLogout">退出系统</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </el-header>

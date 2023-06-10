@@ -15,7 +15,7 @@
             :disabled="disabled"
             :background="background"
             layout="pager, jumper"
-            :total="1000"
+            :total="10"
             @current-change="handleCurrentChange"
         />
       </div>
@@ -54,7 +54,7 @@ export default {
   setup() {
 
     const currentPage = ref(1);
-    const pageSize = ref(100);
+    const pageSize = ref(10);
     const small = ref(false);
     const disabled = ref(false);
     const background = ref(true);
