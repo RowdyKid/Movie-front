@@ -37,6 +37,8 @@
         </el-card>
       </div>
     </div>
+    <div class="foot-block"></div>
+
   </el-main>
 </template>
 
@@ -101,6 +103,15 @@ export default {
   border-top-right-radius: 8px;
   background-color: #222222;
   border-bottom: 1px solid #999999;
+}
+
+.foot-block {
+  min-height: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #222222;
 }
 
 .title {

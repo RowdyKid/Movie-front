@@ -3,22 +3,29 @@
   <div class="personal" style="margin-right: 100px; margin-top: 10px">
     <!--        个性化推荐-->
     <span style="font-weight: bold; font-size: x-large; color: #ffd04b; margin-left: 20px;"> 个性化推荐</span>
-    <el-scrollbar v-if="!flag" always="true" style="height: 500px; width: 460px">
-      <div v-if="!flag" v-for="(movie, index) in movies" :key="index" style="margin-top: 20px; flex-direction: column; margin-left: 30px">
-      <el-card v-if="movie.original_title" :body-style="{ padding: '0px' }" class="el-card-p" shadow="hover">
-        <router-link :to="`/movies/details/${movie.id}`" class="movie-link">
-          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
-          <div class="up-movie-block">
+    <div >
+      <el-scrollbar
+          v-loading="loading"
+          element-loading-background="rgba(122, 122, 122, 0.8)"
+          v-if="!flag" always="true" style="height: 500px; width: 460px">
+        <div v-if="!flag" v-for="(movie, index) in movies" :key="index" style="margin-top: 20px; flex-direction: column; margin-left: 30px">
+          <el-card v-if="movie.title" :body-style="{ padding: '0px' }" class="el-card-p" shadow="hover">
+            <router-link :to="`/movies/details/${movie.id}`" class="movie-link">
+              <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
+              <div class="up-movie-block">
                       <span class="font"
-                            style="font-weight: bold; font-size: 17px">{{movie.original_title}} </span>
-            <div class="bottom clearfix">
-              <span class="bfi">{{movie.overview}}</span>
-            </div>
-          </div>
-        </router-link>
-      </el-card>
+                            style="font-weight: bold; font-size: 17px">{{movie.title}} </span>
+                <div class="bottom clearfix">
+                  <div class="bfi">
+                    <p class="ellipsis">{{movie.overview}}</p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </el-card>
+        </div>
+      </el-scrollbar>
     </div>
-    </el-scrollbar>
     <div v-if="flag">
       <el-card class="box-card" style="position: relative;">
         <div style="display: flex; justify-content: space-between;">
@@ -56,6 +63,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 import router from "@/router";
 
+const loading = ref(true)
 const movies = ref([]);
 const token = localStorage.getItem('token');
 const flag = ref('');
@@ -77,6 +85,7 @@ const getRecommendations = async (pageNum) => {
 
   try {
     const response = await axios.get(url, config);
+    loading.value = false;
     return response.data.obj.list;
   } catch (error) {
     flag.value = 'Failed to get recommendations.';
@@ -97,8 +106,8 @@ getRecommendations(1).then((recommendations) => {
 }
 
 .bottom {
-  margin-top: 14px;
-  line-height: 12px;
+  margin-top: 0px;
+  line-height: 15px;
 }
 
 .image {
@@ -130,11 +139,11 @@ getRecommendations(1).then((recommendations) => {
 
 .up-movie-block {
   padding: 5px;
-  height: 120px;
+  height: 30px;
   width: 330px;
   float: right;
   margin-right: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   border-radius: 15px;
 }
 
@@ -160,6 +169,15 @@ getRecommendations(1).then((recommendations) => {
 
 .personal-link, .personal-link:visited {
   color: rgba(255, 208, 75, 0.7);  /* 字体颜色 */
+}
+
+.ellipsis {
+  display: -webkit-box; /* 使用弹性盒子布局 */
+  -webkit-box-orient: vertical; /* 垂直方向排列 */
+  -webkit-line-clamp: 5; /* 设置最大行数为5 */
+  max-height: 6em; /* 设置文本框的最大高度 */
+  overflow: hidden; /* 隐藏溢出的部分 */
+  text-overflow: ellipsis; /* 使用省略号表示溢出部分 */
 }
 
 

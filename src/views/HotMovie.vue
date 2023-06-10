@@ -8,7 +8,7 @@
           v-for="(movie, index) in movies"
           :key="index"
       >
-        <el-card v-if="movie.original_title" :body-style="{ padding: '0px' }" class="el-card"
+        <el-card v-if="movie.title" :body-style="{ padding: '0px' }" class="el-card"
                  style="width: 210px; height: 500px; margin-left: 10px; margin-right: 16px">
           <router-link :to="`/movies/details/${movie.id}`" class="movie-link">
             <img
@@ -18,7 +18,7 @@
           </router-link>
             <div style="padding: 14px">
               <router-link :to="`/movies/details/${movie.id}`" class="movie-link">
-                <div class="font" style="font-size: 19px; font-weight: bold; height: 60px">{{ movie.original_title }}</div>
+                <div class="font" style="font-size: 19px; font-weight: bold; height: 60px">{{ movie.title }}</div>
                 <div class="tagline">{{movie.tagline}}</div>
               </router-link>
               <div class="bottom">
@@ -83,7 +83,7 @@ const getRecommendations = async (pageNum) => {
   }
 }
 
-getRecommendations(2).then((recommendations) => {
+getRecommendations(3).then((recommendations) => {
   movies.value = recommendations;
 });
 

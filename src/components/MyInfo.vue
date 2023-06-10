@@ -57,6 +57,8 @@
       </el-form-item>
     </el-form>
   </div>
+  <!--  测试-->
+<!--  <div class="font">{{ user }}</div>-->
 
 </template>
 
@@ -109,6 +111,10 @@ loadUser()
 </script>
 
 <style scoped>
+
+.font {
+  color: white;
+}
 
 .avatar-uploader .avatar {
   width: 120px;

@@ -58,7 +58,7 @@
         <el-form-item prop="title" label="电影名">
           <el-input v-model="state.form.title" autocomplete="off"/>
         </el-form-item>
-        <el-form-item prop="original_title" label="原始语言">
+        <el-form-item prop="original_language" label="原始语言">
           <el-input v-model="state.form.original_language" autocomplete="off"/>
         </el-form-item>
         <el-form-item prop="tagline" label="标语">
@@ -104,7 +104,7 @@
         <el-form-item prop="title" label="电影名">
           <el-input v-model="state.form.title" autocomplete="off"/>
         </el-form-item>
-        <el-form-item prop="original_title" label="原始语言">
+        <el-form-item prop="original_language" label="原始语言">
           <el-input v-model="state.form.original_language" autocomplete="off"/>
         </el-form-item>
         <el-form-item prop="tagline" label="标语">
@@ -180,7 +180,6 @@ export default {
         {required: true, message: '请输入成人级', trigger: 'blur'},
       ],
     })
-    const ruleFormRef = ref()
 
     const getRecommendations = async (pageNum) => {
 
@@ -265,7 +264,7 @@ export default {
       }
       try {
         await axios.put(url, state.form, config)
-        dialogFormVisible.value = false;
+        updateVisible.value = false;
         ElMessage({
           message: '保存成功',
           type: 'success',

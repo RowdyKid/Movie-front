@@ -34,13 +34,14 @@ const getRecommendations = async (pageNum) => {
   }
 }
 
-getRecommendations(1).then((recommendations) => {
+getRecommendations(2).then((recommendations) => {
   movies.value = recommendations;
   recommendations.forEach(movie => {
-    // 对于每一个电影，我们取出它的 poster_path 属性，然后将其添加到 carouselData 中
-    // 在添加电影到轮播图数据之前，检查 original_title 是否存在且不为空
-    if (movie.original_title && movie.original_title.trim() !== '') {
-      const url = `http://image.tmdb.org/t/p/original/${movie.poster_path}`;
+    // 对于每部电影，我们取出它的 poster_path 属性，然后将其添加到 carouselData 中
+    // 在添加电影到轮播图数据之前，检查 title 是否存在且不为空
+    if (movie.poster_path && movie.title && movie.title.trim() !== '') {
+      const url = `http://image.tmdb.org/t/p/original${movie.poster_path}`;
+      console.log(url)
       carouselData.value.push({ url });
     }
   });

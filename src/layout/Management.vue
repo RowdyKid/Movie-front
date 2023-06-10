@@ -57,6 +57,12 @@
                       <span>电影管理</span>
                     </template>
                   </el-menu-item>
+                  <el-menu-item :index="'search'">
+                    <template #title>
+                      <el-icon><Search/></el-icon>
+                      <span>电影搜索</span>
+                    </template>
+                  </el-menu-item>
                   <el-menu-item :index="'user'">
                     <template #title>
                       <el-icon><User/></el-icon>
@@ -79,7 +85,7 @@
 
 <script setup>
 
-import {ArrowDown, Film, Menu, Setting, User} from "@element-plus/icons-vue";
+import {ArrowDown, Film, Menu, Search, Setting, User} from "@element-plus/icons-vue";
 import {RouterView} from 'vue-router'
 import router from "@/router";
 

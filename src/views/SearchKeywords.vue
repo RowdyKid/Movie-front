@@ -18,8 +18,8 @@
           <router-link :to="`/movies/details/${movie.id}`">
             <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="image">
             <div style="margin-left: 140px">
-              <span class="font" style="font-weight: bold; font-size: 27px">{{movie.original_title}}</span>
-              <span class="font" style="margin-left: 30px; font-size: 20px; font-weight: bold">({{movie.companyName}})</span>
+              <span class="font" style="font-weight: bold; font-size: 27px">{{movie.title}}</span>
+              <span class="font" style="margin-left: 30px; font-size: 20px; font-weight: bold">({{movie.keyword}})</span>
               <br>
               <span class="font" style="font-weight: bold; font-size: 17px; color: gray">发行日期 {{ movie.release_date }}</span>
               <br>
@@ -27,12 +27,16 @@
               <br>
               <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">平均得分: {{ movie.vote_average }}</span>
               <br>
-              <span class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb">简介： {{ movie.overview }}</span>
+              <div class="font" style="font-weight: bold; font-size: 17px; color: #bbbbbb; margin-top: -10px">
+                <p class="ellipsis">{{movie.overview}}</p>
+              </div>
             </div>
           </router-link>
         </el-card>
       </div>
     </div>
+    <div class="foot-block"></div>
+
   </el-main>
 </template>
 
@@ -53,12 +57,12 @@ export default {
       const keywords = store.state.searchData.obj;
 
       //使用map reduce
-      // 这次我们不仅提取每个公司的电影列表
-      // 还将每部电影与其所属的公司名称一起保存
+      // 这次我们不仅提取每个关键词的电影列表
+      // 还将每部电影与关键词名称一起保存
       const movies = keywords.reduce((acc, keyword) => {
         const keywordMovies = keyword.movies.map(movie => ({
           ...movie,
-          companyName: keyword.name
+          keyword: keyword.name
         }));
 
         return [...acc, ...keywordMovies];
@@ -102,6 +106,15 @@ export default {
   border-bottom: 1px solid #999999;
 }
 
+.foot-block {
+  min-height: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #222222;
+}
+
 .title {
   margin-top: 20px;
   margin-left: 25px;
@@ -128,6 +141,15 @@ export default {
   height: 165px;
   object-fit: fill;
   float: left;
+}
+
+.ellipsis {
+  display: -webkit-box; /* 使用弹性盒子布局 */
+  -webkit-box-orient: vertical; /* 垂直方向排列 */
+  -webkit-line-clamp: 3; /* 设置最大行数为5 */
+  max-height: 4em; /* 设置文本框的最大高度 */
+  overflow: hidden; /* 隐藏溢出的部分 */
+  text-overflow: ellipsis; /* 使用省略号表示溢出部分 */
 }
 
 </style>

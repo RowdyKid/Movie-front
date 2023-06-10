@@ -71,6 +71,11 @@ const router = createRouter({
           name: 'Movie',
           component: () => import('../views/ManageMovie.vue')
         },
+        {
+          path: 'search',
+          name: 'Search',
+          component: () => import('../views/ManageSearch.vue')
+        },
       ]
     },
     {
