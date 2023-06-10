@@ -29,7 +29,7 @@
     <div style="margin: 0px 20px 20px 20px">
       <el-table :data="state.tableData">
         <el-table-column v-if="searchType === 'company'" prop="companyName" label="公司"></el-table-column>
-        <el-table-column v-if="searchType === 'keyword'" prop="keyword" label="公司"></el-table-column>
+        <el-table-column v-if="searchType === 'keyword'" prop="keyword" label="关键词"></el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
         <el-table-column prop="original_language" label="原始语言"></el-table-column>
         <el-table-column prop="overview" label="概述"></el-table-column>
@@ -143,22 +143,21 @@ const rules = reactive({
 const search = async () => {
   let url = `http://`+ config.serverUrl +`/`;
   console.log(searchType.value)
-  if (searchType.value === 'movie') {
-    url += `movies/${keyword.value}`;
-  } else if (searchType.value === 'company') {
+  if (searchType.value === 'company') {
     url += `companies/${keyword.value}/movies`;
-  } else if (searchType.value === 'keyword') {
+  }
+  else if (searchType.value === 'keyword') {
     url += `keywords/${keyword.value}/movies`;
+  }
+  else {
+    url += `movies/${keyword.value}`;
   }
 
   try {
     const response = await axios.get(url);
     console.log(response.data)
     // 成功获取搜索结果后
-    if (searchType.value === 'movie') {
-      movies.value = response.data.obj;
-      state.tableData = response.data.obj;
-    } else if (searchType.value === 'company') {
+    if (searchType.value === 'company') {
 
       const moviesWithCompany = computed(() => {
         const companies = response.data.obj;
@@ -180,7 +179,8 @@ const search = async () => {
       console.log(moviesWithCompany.value)
       state.tableData = moviesWithCompany.value;
 
-    } else if (searchType.value === 'keyword') {
+    }
+    else if (searchType.value === 'keyword') {
 
       const moviesWithKeyword = computed(() => {
         const keywords = response.data.obj;
@@ -202,6 +202,10 @@ const search = async () => {
       console.log(moviesWithKeyword.value);
       state.tableData = moviesWithKeyword.value;
 
+    }
+    else {
+      movies.value = response.data.obj;
+      state.tableData = response.data.obj;
     }
   } catch (err) {
     console.error(err);
